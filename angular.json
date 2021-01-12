@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "online-book-frontend"
+  "defaultProject": "online-book-frontend",
+  "cli": {
+    "analytics": "90e5efd0-ecb3-456b-95ab-d668b06782e3"
+  }
 }
