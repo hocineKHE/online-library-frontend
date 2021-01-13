@@ -7,17 +7,28 @@ import { BooksComponent } from './books/books.component';
 import {HttpClientModule} from "@angular/common/http";
 import {BookService} from "./books/book-services/book.service";
 import { BooksGridComponent } from './books/books-grid/books-grid.component';
+import {RouterModule ,Routes} from "@angular/router";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+const routes: Routes =[
+  {path: "books", component: BooksComponent},
+  {path: "category/:id", component: BooksComponent},
+  {path: "",redirectTo: "/books", pathMatch: 'full'},
+  {path: "**", component: PageNotFoundComponent}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
     BooksComponent,
-    BooksGridComponent
+    BooksGridComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [
     BookService
