@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { BooksComponent } from './books/books.component';
 import {HttpClientModule} from "@angular/common/http";
 import {BookService} from "./books/book-services/book.service";
+import { BooksGridComponent } from './books/books-grid/books-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BooksComponent
+    BooksComponent,
+    BooksGridComponent
   ],
   imports: [
     BrowserModule,
