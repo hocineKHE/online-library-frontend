@@ -1,10 +1,11 @@
 <div class="row">
   <div class="col-lg-4 col-md-6 mb-4" *ngFor="let book of books">
     <div class="card h-100">
-      <a href="#"><img class="card-img-top img-responsive" src="{{book.imageUrl}}" alt=""></a>
+      <a routerLink="/books/{{book.id}}" s>
+        <img class="card-img-top img-responsive" src="{{book.imageUrl}}" alt=""></a>
       <div class="card-body">
         <h4 class="card-title">
-          <a href="#">{{book.name}}</a>
+          <a routerLink="/books/{{book.id}}">{{book.name}}</a>
         </h4>
         <h5>{{book.unitPrice | currency: 'EUR'}}</h5>
         <p class="card-text text-truncate">{{book.description}}</p>
@@ -18,4 +19,47 @@
   <div *ngIf="books?.length == 0" class="col-md-12 alert alert-warning text-center">
     No Books found
   </div>
+
+
 </div>
+
+<div class="row">
+  <!--handle page size-->
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-4">
+        <span class="mr-2">Page size: </span>
+      </div>
+      <div class="col-md-8">
+        <select (change)="updatePageSize($event)" class="form-control-sm">
+          <option selected>3</option>
+          <option>10</option>
+          <option>20</option>
+          <option>50</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!--handle pagination-->
+
+  <div class="col-md-6">
+    <ngb-pagination
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      [collectionSize]="totalRecords"
+      (pageChange)="listBooks()"
+      [maxSize]="2"
+      [boundaryLinks]="true"
+      class="d-flex justify-content-end"
+    >
+      <ng-template ngbPaginationPrevious>Prev</ng-template>
+      <ng-template ngbPaginationNext>Next</ng-template>
+
+      <ng-template ngbPaginationFirst>First</ng-template>
+      <ng-template ngbPaginationLast>Last</ng-template>
+    </ngb-pagination>
+  </div>
+</div>
+<!--pagination selector-->
+

@@ -1,0 +1,57 @@
+<body>
+<br>
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-lg-3">
+      <app-categories></app-categories>
+    </div>
+
+    <div class="col-lg-9">
+      <div class="row">
+        <!-- display book image -->
+        <div class="col-12 col-md-4">
+          <div class="img-thumbnail">
+            <img src="{{book.imageUrl}}"/>
+          </div>
+        </div>
+
+
+        <!-- display book details -->
+        <div class="col-12 col-md-8">
+          <h3>{{book.name}} </h3>
+          <hr>
+
+          <p>{{book.description}}</p>
+          <hr>
+
+          <h4>Price : <strong>{{book.unitPrice | currency: 'EUR'}}</strong></h4>
+          <hr>
+
+          <h4>Qty available : {{book.unitsInStock}}</h4>
+          <hr>
+
+          <a routerLink="/books" class="btn btn-success ml-1 float-right">
+            <i class="fas fa-arrow-left"></i>
+            Back
+          </a>
+
+          <a class="btn btn-primary float-right">
+            <i class="fas fa-cart-arrow-down"></i>
+            Add to Cart
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<br><br>
+
+
+</body>
