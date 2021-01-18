@@ -10,9 +10,16 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class BooksGridComponent implements OnInit {
 
-  books?: Book[];
-  currentCategoryId?: number;
-  searchMode: boolean =  false;
+  books: Book[] = [];
+  currentCategoryId: number = 1;
+  searchMode: boolean = false;
+  previousCategory: number = 1;
+
+  //properties for server side pagination
+  currentPage: number = 1;
+  pageSize: number = 3;
+  totalRecords: number = 0;
+
 
   constructor(private bookService: BookService, private activatedRoute: ActivatedRoute) {
   }
@@ -22,6 +29,7 @@ export class BooksGridComponent implements OnInit {
       this.listBooks()
     })
   }
+
 
   listBooks() {
     this.searchMode = this.activatedRoute.snapshot.paramMap.has('keyword')
@@ -47,7 +55,21 @@ export class BooksGridComponent implements OnInit {
       this.currentCategoryId = 1;
     }
 
-    this.bookService.getBooks(this.currentCategoryId).subscribe(result => this.books = result,
+    /**
+     * setting up the current page parameter
+     * if user navigate to other category
+     */
+
+    if (this.previousCategory != this.currentCategoryId) {
+      this.currentPage = 1;
+    }
+
+    this.previousCategory = this.currentCategoryId;
+
+    this.bookService.getBooks(
+      this.currentCategoryId,
+      this.currentPage - 1,
+      this.pageSize).subscribe(this.processPaginate(),
       error => console.log(error))
   }
 
@@ -55,10 +77,31 @@ export class BooksGridComponent implements OnInit {
 
     // @ts-ignore
     const keyword: string = this.activatedRoute.snapshot.paramMap.get('keyword')
-    this.bookService.searchBook(keyword).subscribe(result => this.books = result, error => console.log(error))
-
+                      this.bookService.
+                      searchBook(keyword, this.currentPage-1, this.pageSize).
+                      subscribe(this.processPaginate(), error => console.log(error))
 
 
   }
 
+
+  /*
+ * page size part
+ * */
+
+  updatePageSize(pageSize: any) {
+    this.pageSize = pageSize;
+    this.currentPage = 1;
+    this.listBooks();
+  }
+
+  private processPaginate() {
+    // @ts-ignore
+    return data => {
+      this.books = data._embedded.books;
+      this.currentPage = data.page.number + 1;
+      this.totalRecords = data.page.totalElements;
+      this.pageSize = data.page.size;
+    };
+  }
 }
