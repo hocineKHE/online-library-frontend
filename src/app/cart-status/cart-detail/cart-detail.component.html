@@ -38,9 +38,34 @@
 
                 <td>
                   <div class="row">
+
+
                     <div class="col-md-12">
-                      <p>Quantity: {{cartItemI.quantity}}</p>
+                      <p>Quantity:
+                        <span (click)="removeBook(cartItemI)" class="float-right pointer text-danger">
+                          <i class="fas fa-trash-alt"></i>
+                        </span>
+                      </p>
                     </div>
+
+                    <div class="col-md-4">
+                      <button (click)="incrementQuantity(cartItemI)" class="btn btn-primary btn-sm float-left">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+
+
+                    <div class="col-md-4 text-center">
+                      {{cartItemI.quantity}}
+                    </div>
+
+
+                    <div class="col-md-4">
+                      <button (click)="decrementQuantity(cartItemI)" class="btn btn-primary btn-sm float-right">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
+
 
                     <div class="col-md-12 mt-2">
                       <p>Subtotal: {{cartItemI.unitPrice * cartItemI.quantity | currency: 'EUR' }}</p>
@@ -62,7 +87,7 @@
             </table>
           </div>
           <div *ngIf="cartItems.length == 0" class="alert alert-warning" role="alert">
-                Your cart is empty
+            Your cart is empty
           </div>
         </div>
       </div>
