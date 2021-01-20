@@ -34,11 +34,11 @@ export class CartService {
       this.cartItems.push(cartItem)
     }
 
-    this.calculatTotalPrice()
+    this.calculateTotalPrice()
 
   }
 
-  private calculatTotalPrice() {
+   calculateTotalPrice() {
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
 
