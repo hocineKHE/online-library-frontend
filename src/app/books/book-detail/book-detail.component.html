@@ -33,15 +33,15 @@
           <h4>Qty available : {{book.unitsInStock}}</h4>
           <hr>
 
-          <a routerLink="/books" class="btn btn-success ml-1 float-right">
+          <button routerLink="/books" class="btn btn-success ml-1 float-right">
             <i class="fas fa-arrow-left"></i>
             Back
-          </a>
+          </button>
 
-          <a class="btn btn-primary float-right">
-            <i class="fas fa-cart-arrow-down"></i>
+          <button class="btn btn-primary float-right" (click)="addToCart()">
+            <i class="fas fa-cart-arrow-down" ></i>
             Add to Cart
-          </a>
+          </button>
 
         </div>
 

@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {Book} from "../book";
+import {Book} from "../../model/book";
 import {BookService} from "../book-services/book.service";
 import {ActivatedRoute} from "@angular/router";
+import {CartService} from "../../cart-status/cart.service";
+import {CartItem} from "../../model/cart-item";
+import {NgxSpinner} from "ngx-spinner/lib/ngx-spinner.enum";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-books-grid',
@@ -21,7 +25,10 @@ export class BooksGridComponent implements OnInit {
   totalRecords: number = 0;
 
 
-  constructor(private bookService: BookService, private activatedRoute: ActivatedRoute) {
+  constructor(private bookService: BookService,
+              private activatedRoute: ActivatedRoute,
+              private cartService: CartService,
+              private ngxSpinnerService: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
@@ -32,6 +39,11 @@ export class BooksGridComponent implements OnInit {
 
 
   listBooks() {
+    /**
+     * start the spinner
+     */
+    this.ngxSpinnerService.show();
+
     this.searchMode = this.activatedRoute.snapshot.paramMap.has('keyword')
 
     if (this.searchMode) {
@@ -98,10 +110,25 @@ export class BooksGridComponent implements OnInit {
   private processPaginate() {
     // @ts-ignore
     return data => {
+      /**
+       * stoop the spinner
+       */
+      this.ngxSpinnerService.hide()
+
       this.books = data._embedded.books;
       this.currentPage = data.page.number + 1;
       this.totalRecords = data.page.totalElements;
       this.pageSize = data.page.size;
     };
+  }
+
+  /**
+   * payment part
+   * @param book
+   */
+
+  addToCart(book: Book) {
+    const cartItem = new CartItem(book)
+    this.cartService.addToCart(cartItem)
   }
 }
