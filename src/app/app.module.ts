@@ -16,12 +16,14 @@ import {JwPaginationModule} from "jw-angular-pagination";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './cart-status/cart-status.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CartDetailComponent } from './cart-status/cart-detail/cart-detail.component';
 
 const routes: Routes =[
   {path: "books/:id", component: BookDetailComponent},
   {path: "books", component: BooksComponent},
   {path: "search/:keyword", component: BooksComponent},
   {path: "category/:id", component: BooksComponent},
+  {path: "cart-detail", component: CartDetailComponent},
   {path: "",redirectTo: "/books", pathMatch: 'full'},
   {path: "**", component: PageNotFoundComponent}
 ]
@@ -35,7 +37,8 @@ const routes: Routes =[
     CategoriesComponent,
     SearchBookComponent,
     BookDetailComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailComponent
   ],
   imports: [
     BrowserModule,
