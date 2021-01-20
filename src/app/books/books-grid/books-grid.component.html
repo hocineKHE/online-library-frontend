@@ -1,3 +1,7 @@
+<ngx-spinner type="ball-spin-clockwise" size="default" bdColor="rgba(51, 51, 51, 0.8)">
+  <p class="spinner-text">Please wait...</p>
+</ngx-spinner>
+
 <div class="row">
   <div class="col-lg-4 col-md-6 mb-4" *ngFor="let book of books">
     <div class="card h-100">
@@ -11,18 +15,18 @@
         <p class="card-text text-truncate">{{book.description}}</p>
       </div>
       <div class="card-footer">
-        <button class="btn btn-primary float-right">Add Cart</button>
+        <button class="btn btn-primary float-right" (click)="addToCart(book)">Add Cart</button>
       </div>
     </div>
   </div>
 
-  <div *ngIf="books?.length == 0" class="col-md-12 alert alert-warning text-center">
+  <div *ngIf="books?.length == 0 || !books" class="col-md-12 alert alert-warning text-center">
     No Books found
   </div>
 
 
 </div>
-
+<div *ngIf="books.length>0">
 <div class="row">
   <!--handle page size-->
   <div class="col-md-6">
@@ -62,4 +66,4 @@
   </div>
 </div>
 <!--pagination selector-->
-
+</div>
