@@ -1,0 +1,75 @@
+<div class="container margin">
+  <div class="row">
+
+    <div class="col-md-3">
+      <app-categories></app-categories>
+
+    </div>
+    <div class="col-md-9">
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <div *ngIf="cartItems.length > 0">
+            <table class="table table-bordered">
+
+              <thead class="bg-dark text-light">
+
+              <tr>
+                <td width="20%">Book Image</td>
+                <td width="50%">Book detail</td>
+                <td width="30%"></td>
+              </tr>
+
+              </thead>
+
+
+              <tbody>
+              <tr *ngFor="let cartItemI of cartItems">
+                <td>
+                  <img src="{{cartItemI.imageUrl}}" class="img-responsive" width="150">
+                </td>
+
+                <td>
+                  <p>{{cartItemI.name}}</p>
+                  <p>{{cartItemI.unitPrice | currency: 'EUR' }}</p>
+                </td>
+
+                <td>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p>Quantity: {{cartItemI.quantity}}</p>
+                    </div>
+
+                    <div class="col-md-12 mt-2">
+                      <p>Subtotal: {{cartItemI.unitPrice * cartItemI.quantity | currency: 'EUR' }}</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2"></td>
+                <td class="font-weight-bold">
+                  <p>Total quantity: {{totalQuantity}}</p>
+                  <p>Shipping : Free</p>
+                  <p>Total Price : {{totalPrice | currency: 'EUR' }}</p>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="cartItems.length == 0" class="alert alert-warning" role="alert">
+                Your cart is empty
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
